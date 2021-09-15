@@ -1,4 +1,4 @@
-const { getItem, putItem } = require("./service/policyExecutionService.js");
+const { getItem, putItem } = require("./policyExecutionService.js");
 
 exports.handler = async function(event, context) {
   

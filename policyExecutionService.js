@@ -1,5 +1,5 @@
 const { GetCommand, PutCommand } = require("@aws-sdk/lib-dynamodb");
-const { ddbDocClient } = require("../libs/ddbDocClient.js");
+const { ddbDocClient } = require("./libs/ddbDocClient.js");
 
 const getItem = async function (eventID, time){
   const params = {
