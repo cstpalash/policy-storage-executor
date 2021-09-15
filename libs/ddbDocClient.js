@@ -34,5 +34,8 @@ const translateConfig = { marshallOptions, unmarshallOptions };
 // Create the DynamoDB Document client.
 const ddbDocClient = DynamoDBDocumentClient.from(ddbClient, translateConfig);
 
-exports.ddbDocClient = ddbDocClient;
+module.exports = {
+    ddbDocClient
+};
+//exports.ddbDocClient = ddbDocClient;
 // snippet-end:[dynamodb.JavaScript.tables.createdocclientv3]

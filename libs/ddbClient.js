@@ -16,5 +16,8 @@ const REGION = "us-west-2"; //e.g. "us-east-1"
 // Create an Amazon DynamoDB service client object.
 const ddbClient = new DynamoDBClient({ region: REGION });
 
-exports.ddbClient = ddbClient;
+//exports.ddbClient = ddbClient;
+module.exports = {
+	ddbClient
+};
 // snippet-end:[dynamodb.JavaScript.tables.createclientv3]

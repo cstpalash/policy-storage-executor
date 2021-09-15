@@ -1,7 +1,7 @@
 const { GetCommand, PutCommand } = require("@aws-sdk/lib-dynamodb");
 const { ddbDocClient } = require("../libs/ddbDocClient.js");
 
-exports.getItem = async function getItem(eventID, time){
+const getItem = async function (eventID, time){
   const params = {
     TableName: "tbl_policy_execution",
     Key: {
@@ -21,7 +21,7 @@ exports.getItem = async function getItem(eventID, time){
   return data.Item;
 }
 
-exports.putItem = async function putItem(record){
+const putItem = async function (record){
 
   let params = { 
     TableName: "tbl_policy_execution",
@@ -38,3 +38,8 @@ exports.putItem = async function putItem(record){
 
   return data;
 }
+
+module.exports = {
+  getItem,
+  putItem
+};
