@@ -1,8 +1,11 @@
 exports.handler = async function(event, context) {
   
-  console.log('## ENVIRONMENT VARIABLES: ' + serialize(process.env));
-  console.log('## CONTEXT: ' + serialize(context));
-  console.log('## EVENT: ' + serialize(event));
+  //console.log('## ENVIRONMENT VARIABLES: ' + serialize(process.env));
+  //console.log('## CONTEXT: ' + serialize(context));
+  //console.log('## EVENT: ' + serialize(event));
+
+  let body = JSON.parse(event.body);
+  console.log('## body: ' + serialize(body));
   
   return { ok : true };
 }
