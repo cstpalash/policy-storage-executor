@@ -35,7 +35,7 @@ exports.handler = async function(event, context) {
   //console.log('## EVENT: ' + serialize(event));
 
   let body = JSON.parse(event.body);
-  //console.log('## body: ' + serialize(body));
+  console.log(serialize(body));
 
   switch(body.source){
     case "aws.s3":
