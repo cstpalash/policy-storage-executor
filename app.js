@@ -56,14 +56,14 @@ async function process_aws_s3_event(body){
     case "PutBucketEncryption":
     case "DeleteBucketEncryption":
     case "CreateBucket":
-      await process_aws_s3_event(body);
+      await process_aws_s3_event_body(body);
       break; 
     default:
       break;
   }
 }
 
-async function process_aws_s3_event(body){
+async function process_aws_s3_event_body(body){
 
   let eventID = body.detail.eventID;
   let time = body.detail.eventTime;
@@ -83,7 +83,7 @@ async function process_aws_s3_event(body){
 
       let validationResult = binArrayToJson(policyResponse.Payload);
 
-      await putItem(Object.assign(record, validationResult));
+      await putItem(Object.assign(record, { executionType : "Continuous Compliance" }, validationResult));
 
     }
 
