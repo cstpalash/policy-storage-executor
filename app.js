@@ -44,8 +44,18 @@ exports.handler = async function(event, context) {
     default:
       break;
   }
+
+  let body = JSON.stringify({ message : "OK" });
+  let statusCode = '200';
+  const headers = {
+      'Content-Type': 'application/json',
+  };
   
-  return { ok : true };
+  return {
+      statusCode,
+      body,
+      headers,
+  };
 }
 
 // AWS - S3 start
