@@ -66,6 +66,7 @@ async function process_aws_s3_event(body){
     case "PutBucketEncryption":
     case "DeleteBucketEncryption":
     case "CreateBucket":
+    case "DeleteBucket":
       await process_aws_s3_event_body(body);
       break; 
     default:
@@ -85,17 +86,27 @@ async function process_aws_s3_event_body(body){
 
     let record = getRecord(body); 
 
-    let encryptionConfig = await getEncryptionConfiguration(record.resource);
+    if(record.eventName == "DeleteBucket"){
 
-    if(encryptionConfig){
-
-      let policyResponse = await validatePolicy(encryptionConfig);
-
-      let validationResult = binArrayToJson(policyResponse.Payload);
-
-      await putItem(Object.assign(record, { executionType : "Continuous Compliance" }, validationResult));
+      await putItem(Object.assign(record, { executionType : "Continuous Compliance" }));
 
     }
+    else{
+
+      let encryptionConfig = await getEncryptionConfiguration(record.resource);
+
+      if(encryptionConfig){
+
+        let policyResponse = await validatePolicy(encryptionConfig);
+
+        let validationResult = binArrayToJson(policyResponse.Payload);
+
+        await putItem(Object.assign(record, { executionType : "Continuous Compliance" }, validationResult));
+
+      }
+    }
+
+    
 
   }
 
