@@ -86,27 +86,18 @@ async function process_aws_s3_event_body(body){
 
     let record = getRecord(body); 
 
-    if(record.eventName == "DeleteBucket"){
+    let encryptionConfig = (record.eventName == "DeleteBucket") ? {} : 
+      await getEncryptionConfiguration(record.resource);
 
-      await putItem(Object.assign(record, { executionType : "Continuous Compliance" }));
+    if(encryptionConfig){
+
+      let policyResponse = await validatePolicy(encryptionConfig);
+
+      let validationResult = binArrayToJson(policyResponse.Payload);
+
+      await putItem(Object.assign(record, { executionType : "Continuous Compliance" }, validationResult));
 
     }
-    else{
-
-      let encryptionConfig = await getEncryptionConfiguration(record.resource);
-
-      if(encryptionConfig){
-
-        let policyResponse = await validatePolicy(encryptionConfig);
-
-        let validationResult = binArrayToJson(policyResponse.Payload);
-
-        await putItem(Object.assign(record, { executionType : "Continuous Compliance" }, validationResult));
-
-      }
-    }
-
-    
 
   }
 
