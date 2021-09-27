@@ -45,7 +45,7 @@ exports.handler = async function(event, context) {
       break;
   }
 
-  let body = JSON.stringify({ message : "OK" });
+  let responseBody = JSON.stringify({ message : "OK" });
   let statusCode = '200';
   const headers = {
       'Content-Type': 'application/json',
@@ -53,7 +53,7 @@ exports.handler = async function(event, context) {
   
   return {
       statusCode,
-      body,
+      responseBody,
       headers,
   };
 }
